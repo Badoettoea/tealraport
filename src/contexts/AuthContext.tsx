@@ -1,4 +1,3 @@
-
 import { createContext, useContext, useState, useEffect, ReactNode } from "react";
 import { toast } from "sonner";
 
@@ -21,6 +20,8 @@ interface AuthContextType {
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
+const GOOGLE_SCRIPT_URL = "YOUR_GOOGLE_APPS_SCRIPT_URL"; // Ganti dengan URL dari Google Apps Script Anda
+
 interface AuthProviderProps {
   children: ReactNode;
 }
@@ -38,41 +39,18 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     setIsLoading(false);
   }, []);
 
-  // In a real app, this would validate against the Google Sheet via API
-  const validatePin = async (pin: string): Promise<User | null> => {
-    // Mock validation for demonstration
-    if (pin === "1234") {
-      return {
-        id: "user1",
-        name: "John Doe",
-        role: "user",
-        profileImage: "https://source.unsplash.com/100x100/?portrait",
-        additionalInfo: {
-          class: "Class A",
-          enrollmentDate: "2023-01-15"
-        }
-      };
-    } else if (pin === "admin") {
-      return {
-        id: "admin1",
-        name: "Admin User",
-        role: "admin",
-        profileImage: "https://source.unsplash.com/100x100/?admin",
-      };
-    }
-    return null;
-  };
-
   const login = async (pin: string) => {
     setIsLoading(true);
     try {
-      const validatedUser = await validatePin(pin);
-      if (validatedUser) {
-        setUser(validatedUser);
-        localStorage.setItem("user", JSON.stringify(validatedUser));
+      const response = await fetch(`${GOOGLE_SCRIPT_URL}?action=login&pin=${pin}`);
+      const data = await response.json();
+      
+      if (data.success && data.user) {
+        setUser(data.user);
+        localStorage.setItem("user", JSON.stringify(data.user));
         toast.success("Login successful!");
       } else {
-        toast.error("Invalid PIN, please try again.");
+        toast.error(data.error || "Invalid PIN, please try again.");
       }
     } catch (error) {
       console.error("Login error:", error);
