@@ -20,7 +20,7 @@ interface AuthContextType {
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-const GOOGLE_SCRIPT_URL = "YOUR_GOOGLE_APPS_SCRIPT_URL"; // Ganti dengan URL dari Google Apps Script Anda
+const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwdDln0rppWZU9e3kKHLL-sWjrO2sJADl8iqQHsZMsO2MAlDePg0ThYVaRKTfwf27Uv/exec"; // Ganti dengan URL dari Google Apps Script Anda
 
 interface AuthProviderProps {
   children: ReactNode;
