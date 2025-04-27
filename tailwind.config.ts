@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -18,6 +19,9 @@ export default {
 			}
 		},
 		extend: {
+			fontFamily: {
+				poppins: ['Poppins', 'sans-serif'],
+			},
 			colors: {
 				border: 'hsl(var(--border))',
 				input: 'hsl(var(--input))',
@@ -61,12 +65,31 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
+				},
+				teal: {
+					50: '#eafffe',
+					100: '#cbfffc',
+					200: '#9ffaf9',
+					300: '#63f2f2',
+					400: '#2fe1e6',
+					500: '#15c3cc',
+					600: '#0c9ca8',
+					700: '#0d7d89',
+					800: '#116370',
+					900: '#13525e',
+					950: '#063641',
 				}
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
 				md: 'calc(var(--radius) - 2px)',
 				sm: 'calc(var(--radius) - 4px)'
+			},
+			boxShadow: {
+				'neu-sm': '5px 5px 10px rgba(174, 174, 192, 0.2), -5px -5px 10px rgba(255, 255, 255, 0.9)',
+				'neu': '10px 10px 20px rgba(174, 174, 192, 0.2), -10px -10px 20px rgba(255, 255, 255, 0.9)',
+				'neu-lg': '15px 15px 30px rgba(174, 174, 192, 0.2), -15px -15px 30px rgba(255, 255, 255, 0.9)',
+				'neu-inner': 'inset 5px 5px 10px rgba(174, 174, 192, 0.2), inset -5px -5px 10px rgba(255, 255, 255, 0.9)',
 			},
 			keyframes: {
 				'accordion-down': {
@@ -84,11 +107,22 @@ export default {
 					to: {
 						height: '0'
 					}
-				}
+				},
+				'fade-in': {
+					'0%': {
+						opacity: '0',
+						transform: 'translateY(10px)'
+					},
+					'100%': {
+						opacity: '1',
+						transform: 'translateY(0)'
+					}
+				},
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
-				'accordion-up': 'accordion-up 0.2s ease-out'
+				'accordion-up': 'accordion-up 0.2s ease-out',
+				'fade-in': 'fade-in 0.3s ease-out',
 			}
 		}
 	},
